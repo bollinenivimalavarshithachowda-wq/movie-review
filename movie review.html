@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MovieVerse</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #151520;
+  color: white;
+  text-align: center;
+  margin: 0;
+}
+header {
+  background: #252538;
+  padding: 20px;
+  color: #ffbf00;
+}
+input {
+  padding: 10px;
+  margin: 15px;
+  width: 65%;
+  max-width: 350px;
+  border-radius: 6px;
+}
+.movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+.card {
+  background: #29293b;
+  padding: 12px;
+  border-radius: 10px;
+}
+.card img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.rating {
+  color: #ffbf00;
+}
+</style>
+</head>
+
+<body>
+<header>
+  <h1>🎬 MovieVerse</h1>
+  <p>Movie Reviews & Ratings</p>
+</header>
+
+<input type="text" id="search"
+placeholder="Search movies..." oninput="filterMovies()">
+
+<div class="movies" id="movies"></div>
+
+<script>
+const films = [
+  {
+    name: "Avatar",
+    genre: "Adventure",
+    year: 2009,
+    rating: 7.9,
+    poster: "https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg"
+  },
+  {
+    name: "Inception",
+    genre: "Sci-Fi",
+    year: 2010,
+    rating: 8.8,
+    poster: "https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg"
+  },
+  {
+    name: "The Dark Knight",
+    genre: "Action",
+    year: 2008,
+    rating: 9.0,
+    poster: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg"
+  }
+];
+
+function displayMovies(list) {
+  document.getElementById("movies").innerHTML =
+    list.map(film => `
+      <div class="card">
+        <img src="${film.poster}" alt="${film.name} poster">
+        <h3>${film.name}</h3>
+        <p>${film.genre} | ${film.year}</p>
+        <p class="rating">⭐ ${film.rating}/10</p>
+        <p>A great movie worth watching!</p>
+      </div>
+    `).join("");
+}
+
+function filterMovies() {
+  const query = document.getElementById("search")
+    .value.toLowerCase();
+
+  displayMovies(films.filter(film =>
+    film.name.toLowerCase().includes(query)
+  ));
+}
+
+displayMovies(films);
+</script>
+</body>
+</html>
